@@ -1,0 +1,17 @@
+extends layout.pug
+
+block content
+  .container
+    h2 Adicionar Produto
+    form(method="post", action="/products")
+      div.mb-3
+        label(for="name").form-label Nome do Produto
+        input#name.form-control(type="text" name="name" required)
+      div.mb-3
+        label(for="imageUrl").form-label URL da Imagem do Produto
+        input#imageUrl.form-control(type="text" name="imageUrl")
+      div.mb-3
+        label(for="price").form-label Preço do Produto
+        input#price.form-control(type="number" step="0.01" min="0" name="price" required)
+      div.text-center
+        button.btn.btn-primary(type="submit") Criar Produto

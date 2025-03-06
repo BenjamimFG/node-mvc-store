@@ -1,31 +1,19 @@
-const express = require('express');
-const passport = require('passport');
-const session = require('express-session');
-const authRoutes = require('./routes/auth');
-const dashboardRoutes = require('./routes/dashboard');
-const db = require('./db.js');
-const { init: initAuth } = require('./auth');
+const express = require("express");
+const productRoutes = require("./routes/productRoutes.js");
+const db = require("./db.js");
 
 const app = express();
 const PORT = 8080;
 
-app.use(express.urlencoded({extended: false}));
-app.set('view engine', 'pug');
+app.use(express.urlencoded({ extended: false }));
+app.set("view engine", "pug");
 
-initAuth();
-app.use(session({
-  secret: 'secret',
-  saveUninitialized: true,
-  resave: true
-}));
+app.use(express.static("static"));
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.use("/products", productRoutes);
 
-app.use('/', authRoutes);
-app.use('/', dashboardRoutes);
+app.get("/", (_, res) => res.redirect("/products"));
 
-db.sync({ force: false })
-  .then(() => {
-    app.listen(PORT, console.log('Server is running on port: ' + PORT));
-  });
+db.sync({ force: false }).then(() => {
+  app.listen(PORT, console.log("Server is running on port: " + PORT));
+});

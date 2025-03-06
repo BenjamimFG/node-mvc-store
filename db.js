@@ -1,7 +1,3 @@
-const path = require('path');
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-module.exports = new Sequelize({
-  dialect: 'sqlite',
-  storage: path.join(__dirname, 'mvc_demo.sqlite')
-});
+module.exports = new Sequelize(process.env.DB_URL);

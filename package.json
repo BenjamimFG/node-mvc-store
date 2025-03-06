@@ -5,8 +5,10 @@
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.7",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "mysql2": "^3.13.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.2",

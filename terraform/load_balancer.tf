@@ -38,6 +38,10 @@ resource "aws_lb" "elb" {
   }
 }
 
+output "load_balancer_host" {
+  value = aws_lb.elb.dns_name
+}
+
 resource "aws_lb_listener" "elb_listener" {
   depends_on = [ aws_lb_target_group.lb_target ]
 

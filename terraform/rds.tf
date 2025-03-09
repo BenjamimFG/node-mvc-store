@@ -1,6 +1,6 @@
 resource "random_password" "rds_pw" {
   length = 32
-  special = true
+  special = false
 }
 
 resource "aws_secretsmanager_secret" "password" {
@@ -8,6 +8,7 @@ resource "aws_secretsmanager_secret" "password" {
 }
 
 resource "aws_secretsmanager_secret_version" "password" {
+  depends_on = [ random_password.rds_pw ]
   secret_id = aws_secretsmanager_secret.password.id
   secret_string = random_password.rds_pw.result
 }
@@ -21,7 +22,7 @@ resource "aws_db_instance" "rds_db" {
   db_name = "AQUI_EXPRESS"
   username = "admin"
   password = aws_secretsmanager_secret_version.password.secret_string
-  multi_az = false
+  multi_az = false # Desativado devido ao custo
   publicly_accessible = true
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
   skip_final_snapshot = true

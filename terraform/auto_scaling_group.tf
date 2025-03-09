@@ -64,7 +64,7 @@ resource "aws_launch_template" "launch_template" {
     echo "PORT=80" >> .env
     echo "DB_URL='mysql://admin:${aws_secretsmanager_secret_version.password.secret_string}@${aws_db_instance.rds_db.endpoint}/AQUI_EXPRESS'" >> .env
 
-    pm2 start
+    pm2 start server.js
     EOF
   )
 
